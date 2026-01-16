@@ -3,13 +3,17 @@ from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from bson.objectid import ObjectId
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 CORS(app)
 
 # Database Configuration 
 
-app.config["MONGO_URI"] = "mongodb://localhost:27017/rtsp_overlay_db"
+load_dotenv()
+
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 mongo = PyMongo(app)
 db = mongo.db.overlays
 
